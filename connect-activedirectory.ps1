@@ -33,20 +33,19 @@ function Decrypt-SecureString {
         [System.Security.SecureString]
         $sstr
     )
-    
+
     $marshal = [System.Runtime.InteropServices.Marshal]
     $ptr = $marshal::SecureStringToBSTR( $sstr )
     $str = $marshal::PtrToStringBSTR( $ptr )
     $marshal::ZeroFreeBSTR( $ptr )
     $str
-    
+
     # This can also be done in one line:
     # [System.Runtime.InteropServices.marshal]::PtrToStringAuto([System.Runtime.InteropServices.marshal]::SecureStringToBSTR($securestring))
-    
 }
 
 ####################
-    
+
 Set-Variable d1 "ad.ucl.ac.uk" -option ReadOnly
 Set-Variable d2 "adtest.bcc.ac.uk" -option ReadOnly
 Set-Variable d3 "addev.ucl.ac.uk" -option ReadOnly
@@ -114,6 +113,7 @@ if ($conn.user -match "isdccaabrw") {
     }
 }
 
+# todo: build a temp file with all the commands to run in the new shell
 
 $command = '$PSDefaultParameterValues.Add("*-AD*:Server", "' + $conn.domain + '"); ' + `
     '$PSDefaultParameterValues.Add("*-DnsServer*:ComputerName", "' + $conn.domain + '"); ' + `
@@ -124,10 +124,13 @@ $bytes = [System.Text.Encoding]::Unicode.GetBytes($command)
 $encoded = [System.Convert]::ToBase64String($bytes)
 
 $u = $conn.user + '@' + $conn.domain
-$p = (Decrypt-SecureString $conn.pw) + "`r"
+#$p = (Decrypt-SecureString $conn.pw) + "`r"
 # todo: check for sendkeys escape chars in password and put in braces
+# - put this in the code that generates encoded securestring
+
 # https://docs.microsoft.com/en-gb/dotnet/api/system.windows.forms.sendkeys
 
+# for testing purposes:
 $conn.user
 $conn.domain
 $conn.title
@@ -138,12 +141,14 @@ $nothing = Read-Host -prompt "Ready to go"
 ""
 ""
 
+#start-process as the specified user and run some commands to setup the session
+#also set window title and colours?
+
 # NB: Because this uses SendKeys, this script should be started manually.
 # To avoid other windows appearing while we are starting and receiving the input by mistake.
 
 Start-Process -FilePath "runas.exe" -ArgumentList "/noprofile /netonly /user:$u `"powershell -noexit -encodedcommand $encoded`""
 Start-Sleep -Milliseconds 500
-[System.Windows.Forms.SendKeys]::SendWait($p)
+[System.Windows.Forms.SendKeys]::SendWait((Decrypt-SecureString $conn.pw) + "`r")
 
-#start-process as the specified user and run some commands to setup the session
-#also set window title and colours?
+
