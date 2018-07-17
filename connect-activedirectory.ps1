@@ -113,10 +113,22 @@ if ($conn.user -match "isdccaabrw") {
     }
 }
 
-# todo: build a temp file with all the commands to run in the new shell
-# this will also contain predefined GUI commands with the correct settings (like 'mmc dsa.msc /domain=ucl.ac.uk')
+# todo: call a fixed script and give it the right parameters to setup functions and other setup for the session
+# (this script should also work on other domain connected systems)
+# this will also contain predefined GUI commands with the correct settings (examples below)
 # print the connection information at the start of the window ("Connected to ad.ucl.ac.uk")
-# detect whether gitpromptsettings needs tweaking
+# detect whether gitpromptsettings needs tweaking (?)
+# the functions performed by this script are all chosen using parameters
+
+<#
+
+mmc dsa.msc /domain=ad.ucl.ac.uk
+mmc dhcpmgmt.msc /computername ucldhcp01.ad.ucl.ac.uk   [how to find list of authorised servers?]
+function test-credential
+function get-passwordexpiry
+function code-password
+
+#>
 
 $command = '$PSDefaultParameterValues.Add("*-AD*:Server", "' + $conn.domain + '"); ' + `
     '$PSDefaultParameterValues.Add("*-DnsServer*:ComputerName", "' + $conn.domain + '"); ' + `
@@ -155,3 +167,157 @@ Start-Sleep -Milliseconds 500
 [System.Windows.Forms.SendKeys]::SendWait((Decrypt-SecureString $conn.pw) + "`r")
 
 
+# links:
+# https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/mmc
+# http://www.primemsp.com/content/msc_Shortcuts.aspx
+# https://ss64.com/nt/syntax-mmc.html
+
+# todo: sport through this list to find useful ones
+
+<#
+
+AD Domains and Trusts
+ domain.msc
+ 
+Active Directory Management
+ admgmt.msc
+ 
+AD Sites and Serrvices
+ dssite.msc
+ 
+AD Users and COmputers
+ dsa.msc
+ 
+ADSI Edit
+ adsiedit.msc
+ 
+Authorization manager
+ azman.msc
+ 
+Certification Authority Management
+ certsrv.msc
+ 
+Certificate Templates
+ certtmpl.msc
+ 
+Cluster Administrator
+ cluadmin.exe
+ 
+Computer Management
+ compmgmt.msc
+ 
+Component Services
+ comexp.msc
+ 
+Configure Your Server
+ cys.exe
+  
+Device Manager
+ devmgmt.msc
+ 
+DHCP Managment
+ dhcpmgmt.msc
+ 
+Disk Defragmenter
+ dfrg.msc
+ 
+Disk Manager
+ diskmgmt.msc
+ 
+Distributed File System
+ dfsgui.msc
+ 
+DNS Managment
+ dnsmgmt.msc
+  
+Event Viewer
+ eventvwr.msc
+  
+Indexing Service Management
+ ciadv.msc
+ 
+IP Address Manage
+ ipaddrmgmt.msc
+  
+Licensing Manager
+ llsmgr.exe
+ 
+Local Certificates Management
+ certmgr.msc
+ 
+Local Group Policy Editor
+ gpedit.msc
+ 
+Local Security Settings Manager
+ secpol.msc
+ 
+Local Users and Groups Manager
+ lusrmgr.msc
+ 
+Network Load balancing
+ nlbmgr.exe
+  
+Performance Montior
+ perfmon.msc
+ 
+PKI Viewer
+ pkiview.msc
+ 
+Public Key Managment
+ pkmgmt.msc
+  
+QoS Control Management
+ acssnap.msc
+  
+Remote Desktops
+ tsmmc.msc
+ 
+Remote Storage Administration
+ rsadmin.msc
+ 
+Removable Storage 
+ ntmsmgr.msc
+ 
+Removalbe Storage Operator Requests
+ ntmsoprq.msc
+ 
+Routing and Remote Access Manager
+ rrasmgmt.msc
+ 
+Resultant Set of Policy
+ rsop.msc
+  
+Schema management
+ schmmgmt.msc
+ 
+Services Management
+ services.msc
+ 
+Shared Folders
+ fsmgmt.msc
+ 
+SID Security Migration
+ sidwalk.msc
+  
+Telephony Management
+ tapimgmt.msc
+  
+Terminal Server Configuration
+ tscc.msc
+ 
+Terminal Server Licensing 
+ licmgr.exe
+ 
+Terminal Server Manager
+ tsadmin.exe
+  
+UDDI Services Managment
+ uddi.msc
+  
+Windows Mangement Instumentation
+ wmimgmt.msc
+  
+WINS Server manager
+ winsmgmt.msc
+
+#>
