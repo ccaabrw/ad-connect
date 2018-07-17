@@ -114,6 +114,9 @@ if ($conn.user -match "isdccaabrw") {
 }
 
 # todo: build a temp file with all the commands to run in the new shell
+# this will also contain predefined GUI commands with the correct settings (like 'mmc dsa.msc /domain=ucl.ac.uk')
+# print the connection information at the start of the window ("Connected to ad.ucl.ac.uk")
+# detect whether gitpromptsettings needs tweaking
 
 $command = '$PSDefaultParameterValues.Add("*-AD*:Server", "' + $conn.domain + '"); ' + `
     '$PSDefaultParameterValues.Add("*-DnsServer*:ComputerName", "' + $conn.domain + '"); ' + `
