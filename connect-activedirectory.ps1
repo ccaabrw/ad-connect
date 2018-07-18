@@ -119,6 +119,8 @@ if ($conn.user -match "isdccaabrw") {
 # print the connection information at the start of the window ("Connected to ad.ucl.ac.uk")
 # detect whether gitpromptsettings needs tweaking (?)
 # the functions performed by this script are all chosen using parameters
+# OR perhaps this needs to be a module and then we set a parameter variable once loaded?
+# OR a script and a module? [https://powershell.org/forums/topic/declaring-module-parameters/#post-23352]
 
 <#
 
@@ -127,6 +129,7 @@ mmc dhcpmgmt.msc /computername ucldhcp01.ad.ucl.ac.uk   [how to find list of aut
 function test-credential
 function get-passwordexpiry
 function code-password
+check-admins
 
 #>
 
