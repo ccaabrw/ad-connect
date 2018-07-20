@@ -126,6 +126,10 @@ if ($conn.user -match "isdccaabrw") {
 
 mmc dsa.msc /domain=ad.ucl.ac.uk
 mmc dhcpmgmt.msc /computername ucldhcp01.ad.ucl.ac.uk   [how to find list of authorised servers?]
+mmc domain.msc /server=ad.ucl.ac.uk
+mmc dssite.msc /domain=ad.ucl.ac.uk
+mmc dnsmgmt.msc /computername ad.ucl.ac.uk
+
 function test-credential
 function get-passwordexpiry
 function code-password
