@@ -11,3 +11,15 @@ Move creds to a separate module which users can then populate with their own.
 
 
 List the GUI tools and their arguments (populate a number of variables from within a script that is run for the session)
+
+
+EXAMPLE USAGE (current implementation):
+
+Open elevated powershell
+cd \users\ccaabrw\documents\gitdcs\ad-connect
+.\connect-activedirectory.ps1
+.\connect-activedirectory.ps1 -dom adtest
+.\connect-activedirectory.ps1 -dom addev
+
+From each window:
+. .\ad-function.ps1
