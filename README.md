@@ -9,6 +9,11 @@ Predefined credentials are stored in the script (as securestring).
 TODO:
 Move creds to a separate module which users can then populate with their own.
 
+Block user input while automating password entry:
+https://community.idera.com/database-tools/powershell/powertips/b/tips/posts/blocking-user-input
+
+Authenticate using an SSH key?
+
 
 List the GUI tools and their arguments (populate a number of variables from within a script that is run for the session)
 
